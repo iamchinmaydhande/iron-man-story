@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  33%       { transform: translateY(-20px) translateX(8px); }
+  66%       { transform: translateY(10px) translateX(-6px); }
+}
+
+@keyframes scanline {
+  0%   { top: -10%; }
+  100% { top: 110%; }
+}
+
+@keyframes hudpulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+@keyframes cornerspin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes scramble-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes snap-dissolve {
+  0%   { opacity: 1; filter: blur(0px);    transform: scale(1); }
+  50%  { opacity: 0.3; filter: blur(8px);  transform: scale(1.04); }
+  100% { opacity: 1; filter: blur(0px);    transform: scale(1); }
+}
+
+@keyframes wipe-in {
+  0%   { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+
+@keyframes letter-slam {
+  0%   { transform: translateY(120px) rotateX(-90deg); opacity: 0; }
+  60%  { transform: translateY(-8px) rotateX(8deg);    opacity: 1; }
+  100% { transform: translateY(0px) rotateX(0deg);     opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
+  50%       { box-shadow: 0 0 40px currentColor, 0 0 80px currentColor; }
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  cursor: none; 
+  /* ENGINEERING FIX: This must be solid black, not transparent */
+  background-color: #000000 !important; 
+}
+
+#root {
+  background-color: transparent !important;
+}
+/* src/index.css */
+
+/* 1. Force the video to be the highest priority click target */
+video {
+  pointer-events: auto !important;
+  z-index: 1000 !important;
+  position: relative !important;
+}
+
+/* 2. If your video is wrapped in a container, force the container to be transparent to clicks */
+.video-wrapper {
+  pointer-events: auto !important;
+}
+
+/* 3. Global safety: ensure no invisible overlays are blocking the center of the screen */
+.hero-overlay, .scroll-wrapper {
+  pointer-events: none !important;
+}
+
+.chapter-title-letter {
+  display: inline-block;
+  animation: letter-slam 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.snap-transition {
+  animation: snap-dissolve 2s ease-in-out;
+}
+
+.hud-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: currentColor;
+  border-style: solid;
+  opacity: 0.6;
+}
+.hud-corner.tl { top: 0; left: 0;  border-width: 2px 0 0 2px; }
+.hud-corner.tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.hud-corner.bl { bottom: 0; left: 0;  border-width: 0 0 2px 2px; }
+.hud-corner.br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+canvas {
+  pointer-events: none !important;
+}
